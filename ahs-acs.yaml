@@ -1,0 +1,900 @@
+- concept: Owner/Renter Status
+  ahs: 
+    var: tenure
+    type: categorical
+    map:
+        tenure_owner_occupied: 1
+        tenure_renter_occupied: 2
+    notes: Could not merge (3) Occupied without payment of rent
+  acs:
+    table: B25003
+    total: B25003001
+    map:
+        tenure_owner_occupied: B25003002
+        tenure_renter_occupied: B25003003 
+
+- concept: Reason for vacancy / Vacancy Status
+  ahs: 
+    type: categorical
+    var: vacancy
+    map:
+        vacancy_for_rent: 1
+        vacancy_for_rent: 2
+        vacancy_for_sale_only: 3 
+        vacancy_rented_not_occupied: 4 
+        vacancy_sold_not_occupied: 5
+        vacancy_other_vacant: 7
+        vacancy_for_seasonal_recreational: [6, 8, 9, 10]
+        vacancy_for_migrant_workers: 11
+    notes: | 
+        Merged "(2) For rent or for sale" into "vacancy_for_rent" 
+        as the AHS did not include this concept and simple asked 
+        whethere a property for "for sale only." Also merged multiple 
+        flavor of "vacancy_for_seasonal_recreational"
+  acs:
+    table: B25004
+    total: B25004001
+    map:
+        vacancy_for_rent: B25004002
+        vacancy_rented_not_occupied: B25004003
+        vacancy_for_sale_only: B25004004
+        vacancy_sold_not_occupied: B25004005
+        vacancy_other_vacant: B25004008
+        vacancy_for_seasonal_recreational: B25004006
+        vacancy_for_migrant_workers: B25004007
+
+- concept: Sex
+  ahs:
+    var: hhsex
+    type: categorical
+    map:
+        hhsex_male: 1
+        hhsex_female: 2
+  acs:
+    table: B01001
+    total: B01001001
+    map:
+        hhsex_male: B01001002
+        hhsex_female: B01001026
+
+- concept: Reason for vacancy / Vacancy Status
+  ahs:
+    type: continuous
+    var: built
+    map: 
+        built_2010_to_later: [2010, 2015]
+        built_2000_to_2009: [2000, 2009]
+        built_1990_to_1999: [1990, 1999]
+        built_1980_to_1989: [1980, 1989]
+        built_1970_to_1979: [1970, 1979]
+        built_1960_to_1969: [1960, 1969]
+        built_1950_to_1959: [1950, 1959]
+        built_1940_to_1949: [1940, 1949]
+        built_1939_or_earlier: [1000, 1939]
+  acs:
+    table: B25034
+    total: B25034001
+    map:
+        built_2010_to_later: B25034002
+        built_2000_to_2009: B25034003
+        built_1990_to_1999: B25034004
+        built_1980_to_1989: B25034005
+        built_1970_to_1979: B25034006
+        built_1960_to_1969: B25034007
+        built_1950_to_1959: B25034008
+        built_1940_to_1949: B25034009
+        built_1939_or_earlier: B25034010
+
+- concept: Number of units in structure / building.
+  ahs:
+    type: continuous
+    var: nunits
+    map: 
+        nunits_1: 1
+        nunits_2: 2
+        nunits_3_or_4: [3, 4]
+        nunits_5_to_9: [5, 9]
+        nunits_10_to_19: [10, 19]
+        nunits_20_or_more: [20, 50]
+  acs:
+    table: B25024
+    total: B25024001
+    map:
+        nunits_1: [B25024002, B25024003]
+        nunits_2: B25024004
+        nunits_3_or_4: B25024005
+        nunits_5_to_9: B25024006
+        nunits_10_to_19: B25024007
+        nunits_20_or_more: [B25024008, B25024009]
+    notes: | 
+        Could not merge 'mobile home' or 'boat rv van etc'. Merged
+        "nunits 1 attached" and "nunits 1 detached" into nunits_1
+
+- concept: Race
+  ahs:
+    type: categorical
+    var: hhrace
+    map: 
+        hhrace_white_only: '01'
+        hhrace_black_only: '02'
+        hhrace_native_am_only: '03'
+        hhrace_asian_only: '04'
+        hhrace_hawaiian_pac_isl_only: '05'
+        hhrace_other: ['06','07','08','09','10','11','12','13','14','15','16','17','18' ,'19','20','21']
+  acs:
+    table: B02001
+    total: B02001001
+    map:
+        hhrace_white_only: B02001002
+        hhrace_black_only: B02001003
+        hhrace_native_am_only: B02001004
+        hhrace_asian_only: B02001005
+        hhrace_hawaiian_pac_isl_only: B02001006
+        hhrace_other: [B02001007, B02001008,B02001009,B02001010]
+
+- concept: Latino
+  ahs:
+    type: categorical
+    var: hhspan
+    map: 
+        hhspan_yes: 1
+        hhspan_no: 2
+  acs:
+    table: B03003
+    total: B03003001
+    map:
+        hhspan_yes: B03003003
+        hhspan_no: B03003002
+
+- concept: Ratio of Income to Poverty
+  ahs:
+    type: continuous
+    var: poor
+    map: 
+        poor_under_50: [0, 49]
+        poor_50_to_99: [50, 99]
+        poor_100_to_124: [100, 124]
+        poor_125_to_149: [125, 149]
+        poor_150_to_184: [150, 184]
+        poor_184_to_199: [184, 199]
+        poor_200_and_over: [200, 10000]
+  acs:
+    table: C17002
+    total: C17002001
+    map:
+        poor_under_50: C17002002
+        poor_50_to_99: C17002003
+        poor_100_to_124: C17002004
+        poor_125_to_149: C17002005
+        poor_150_to_184: C17002006
+        poor_184_to_199: C17002007
+        poor_200_and_over: C17002008
+
+- concept: Number of Persons in Household
+  ahs:
+    type: continuous
+    var: per
+    map: 
+        per_1: 1
+        per_2: 2
+        per_3: 3
+        per_4: 4
+        per_5: 5
+        per_6: 6
+        per_7_or_more: [7, 100]
+  acs:
+    table: B25009
+    total: B25009001
+    map:
+        per_1: [B25009003, B25009011]
+        per_2: [B25009004, B25009012]
+        per_3: [B25009005, B25009013]
+        per_4: [B25009006, B25009014]
+        per_5: [B25009007, B25009015]
+        per_6: [B25009008, B25009016]
+        per_7_or_more: [B25009009, B25009017]
+    notes: |
+        The ACS only provides Number of Household estimates per Vacanacy Status.
+
+- concept: Social Security
+  ahs:
+    type: categorical
+    var: qss
+    map:
+        qss_yes: 1
+        qss_no:  2
+  acs:
+    table: B19055
+    total: B19055001
+    map:
+        qss_yes: B19055002
+        qss_no: B19055003
+
+- concept: Public Assistance
+  ahs:
+    type: categorical
+    var: qwelf
+    map:
+        qwelf_yes: 1
+        qwelf_no: 2 
+  acs:
+    table: B19057
+    total: B19057001
+    map:
+        qwelf_yes: B19057002
+        qwelf_no: B19057003
+
+- concept: Hearing Difficulty
+  ahs:
+        type: categorical
+        var: hhear
+        map:
+            hhear_yes: 1
+            hhear_no: 2 
+  acs:
+        table: B18102
+        total: B18102001
+        map:
+            hhear_yes: [B18102004, B18102007, B18102010, B18102013, B18102016, B18102019, B18102023, B18102026, B18102029, B18102032, B18102035, B18102038]
+            hhear_no: [B18102005, B18102008, B18102011, B18102014, B18102017, B18102020, B18102024, B18102027, B18102030, B18102033, B18102036, B18102039]
+
+- concept: Vision Difficulty
+  ahs:
+        type: categorical
+        var: hsee
+        map:
+            hsee_yes: 1
+            hsee_no: 2 
+  acs:
+        table: B18103
+        total: B18103001
+        map:
+            hsee_yes: [B18103004, B18103007, B18103010, B18103013, B18103016, B18103019, B18103023, B18103026, B18103029, B18103032, B18103035, B18103038]
+            hsee_no: [B18103005, B18103008, B18103011, B18103014, B18103017, B18103020, B18103024, B18103027, B18103030, B18103033, B18103036, B18103039]
+
+- concept: Cognitive Difficulty
+  ahs:
+        type: categorical
+        var: hmemry
+        map:
+            hmemry_yes: 1
+            hmemry_no: 2 
+  acs:
+        table: B18104
+        total: B18104001
+        map:
+            hmemry_yes: [B18104004, B18104007, B18104010, B18104013, B18104016, B18104020, B18104023, B18104026, B18104029, B18104032]
+            hmemry_no: [B18104005, B18104008, B18104011, B18104014, B18104017, B18104021, B18104024, B18104027, B18104030, B18104033]
+
+- concept: Ambulatory Difficulty
+  ahs:
+        type: categorical
+        var: hwalk
+        map:
+            hwalk_yes: 1
+            hwalk_no: 2 
+  acs:
+        table: B18105
+        total: B18105001
+        map:
+            hwalk_yes: [B18105004, B18105007, B18105010, B18105013, B18105016, B18105020, B18105023, B18105026, B18105029, B18105032]
+            hwalk_no: [B18105005, B18105008, B18105011, B18105014, B18105017, B18105021, B18105024, B18105027, B18105030, B18105033]
+
+- concept: Self-care Difficulty
+  ahs:
+        type: categorical
+        var: hcare
+        map:
+            hcare_yes: 1
+            hcare_no: 2 
+  acs:
+        table: B18106
+        total: B18106001
+        map:
+            hcare_yes: [B18106004, B18106007, B18106010, B18106013, B18106016, B18106020, B18106023, B18106026, B18106029, B18106032]
+            hcare_no: [B18106005, B18106008, B18106011, B18106014, B18106017, B18106021, B18106024, B18106027, B18106030, B18106033]
+
+- concept: Independent Living Difficulty
+  ahs:
+        type: categorical
+        var: herrnd
+        map:
+            herrnd_yes: 1
+            herrnd_no: 2 
+  acs:
+        table: B18107
+        total: B18107001
+        map:
+            herrnd_yes: [B18107004, B18107007, B18107010, B18107013, B18107016, B18107020, B18107023, B18107026]
+            herrnd_no: [B18107005, B18107008, B18107011, B18107014, B18107017, B18107021, B18107024, B18107027]
+
+- concept: Age 
+  ahs:
+        type: continuous
+        var: hhage
+        map:
+            hhage_under_5_years: [0, 5]
+            hhage_5_to_9_years: [5, 9]
+            hhage_10_to_14_years: [10, 14]
+            hhage_15_to_17_years: [15, 17]
+            hhage_18_and_19_years: [18, 19]
+            hhage_20_years: 20
+            hhage_21_years: 21
+            hhage_22_to_24_years: [22, 24]
+            hhage_25_to_29_years: [25, 29]
+            hhage_30_to_34_years: [30, 34]
+            hhage_35_to_39_years: [35, 39]
+            hhage_40_to_44_years: [40, 44]
+            hhage_45_to_49_years: [45, 49]
+            hhage_50_to_54_years: [50, 54]
+            hhage_55_to_59_years: [55, 59]
+            hhage_60_and_61_years: [60, 61]
+            hhage_62_to_64_years: [62, 64]
+            hhage_65_and_66_years: [65, 66]
+            hhage_67_to_69_years: [67, 69]
+            hhage_70_to_74_years: [70, 74]
+            hhage_75_to_79_years: [75, 79]
+            hhage_80_to_84_years: [80, 84]
+            hhage_85_years_and_over: [85, 150]
+  acs:
+        table: B01001
+        total: B01001001
+        map:
+            hhage_under_5_years: [B01001003, B01001027]
+            hhage_5_to_9_years: [B01001004, B01001028]
+            hhage_10_to_14_years: [B01001005, B01001029]
+            hhage_15_to_17_years: [B01001006, B01001030]
+            hhage_18_and_19_years: [B01001007, B01001031]
+            hhage_20_years: [B01001008, B01001032]
+            hhage_21_years: [B01001009, B01001033]
+            hhage_22_to_24_years: [B01001010, B01001034]
+            hhage_25_to_29_years: [B01001011, B01001035]
+            hhage_30_to_34_years: [B01001012, B01001036]
+            hhage_35_to_39_years: [B01001013, B01001037]
+            hhage_40_to_44_years: [B01001014, B01001038]
+            hhage_45_to_49_years: [B01001015, B01001039]
+            hhage_50_to_54_years: [B01001016, B01001040]
+            hhage_55_to_59_years: [B01001017, B01001041]
+            hhage_60_and_61_years: [B01001018, B01001042]
+            hhage_62_to_64_years: [B01001019, B01001043]
+            hhage_65_and_66_years: [B01001020, B01001044]
+            hhage_67_to_69_years: [B01001021, B01001045]
+            hhage_70_to_74_years: [B01001022, B01001046]
+            hhage_75_to_79_years: [B01001023, B01001047]
+            hhage_80_to_84_years: [B01001024, B01001048]
+            hhage_85_years_and_over: [B01001025, B01001049]
+
+- concept: Education status
+  ahs:
+        type: continuous 
+        var: hhgrad
+        map:
+            hhgrad_less_than_1st_grade: 31
+            hhgrad_1st_2nd_3rd_4th_grade: 32
+            hhgrad_5th_or_6th_grade: 33
+            hhgrad_7th_or_8th_grade: 34
+            hhgrad_9th_grade: 35
+            hhgrad_10th_grade: 36
+            hhgrad_11th_grade: 37
+            hhgrad_12th_grade_no_diploma: 38
+            hhgrad_regular_high_school_grad: 39
+            hhgrad_some_college: 40
+            hhgrad_associates_degree: [42, 43]
+            hhgrad_bachelors_degree: 44
+            hhgrad_masters_degree: 45
+            hhgrad_professional_school_degree: 46
+            hhgrad_doctorate_degree: 47
+
+  acs:
+        table: B15003
+        total: B15003001
+        map:
+            hhgrad_less_than_1st_grade: [B15003002, B15003003, B15003004]
+            hhgrad_1st_2nd_3rd_4th_grade: [B15003005, B15003006, B15003007, B15003008]
+            hhgrad_5th_or_6th_grade: [B15003009,  B15003010]
+            hhgrad_7th_or_8th_grade: [B15003011, B15003012]
+            hhgrad_9th_grade: B15003013
+            hhgrad_10th_grade: B15003014
+            hhgrad_11th_grade: B15003015
+            hhgrad_12th_grade_no_diploma: B15003016
+            hhgrad_regular_high_school_grad: [B15003017, B15003018]
+            hhgrad_some_college: [B15003019, B15003020]
+            hhgrad_associates_degree: B15003021
+            hhgrad_bachelors_degree: B15003022
+            hhgrad_masters_degree: B15003023
+            hhgrad_professional_school_degree: B15003024
+            hhgrad_doctorate_degree: B15003025
+
+- concept: Marital Status 
+  ahs:
+        type: categorical
+        var: hhmar 
+        map:
+            hhmar_married_spouse_present: 1
+            hhmar_married_spouse_absent: 2
+            hhmar_widowed: 3
+            hhmar_divorced: 4
+            hhmar_separated: 5
+            hhmar_never_married:  6
+            
+  acs:
+        table: B12001
+        total: B12001001
+        map:
+            hhmar_married_spouse_present: [B12001005,B12001014]
+            hhmar_married_spouse_absent: [B12001006, B12001015]
+            hhmar_widowed: [B12001009, B12001018]
+            hhmar_divorced: [B12001010, B12001019]
+            hhmar_separated: [B12001007, B12001016]
+            hhmar_never_married: [B12001003, B12001012]
+        notes: |
+            Could not merge "Now Married".
+
+- concept: Received rental income.
+  ahs:
+        type: categorical
+        var: qrent
+        map:
+            qrent_yes: 1
+            qrent_no: 2
+
+  acs:
+        table: B19054
+        total: B19054001
+        map:
+            qwelf_yes: B19054002
+            qwelf_no: B19054003
+
+
+
+- concept: Number of bedrooms
+  ahs:
+    type: continuous
+    var: bedrms
+    map:
+        bedrms_0: 0 
+        bedrms_1: 1
+        bedrms_2: 2
+        bedrms_3: 3
+        bedrms_4: 4
+        bedrms_5_or_more: [5, 20]
+  acs:
+    table: B25041
+    total: B25041001
+    map:
+        bedrms_0: B25041002 
+        bedrms_1: B25041003 
+        bedrms_2: B25041004
+        bedrms_3: B25041005
+        bedrms_4: B25041006
+        bedrms_5_or_more: B25041007
+
+- concept: Number of rooms
+  ahs:
+    type: continuous
+    var: rooms
+    map:
+        rooms_one: 1
+        rooms_two: 2
+        rooms_three: 3
+        rooms_four: 4
+        rooms_five: 5
+        rooms_six: 6
+        rooms_seven: 7
+        rooms_eight: 8
+        rooms_nine_or_more: [9, 20]   
+  acs:
+    table: B25017
+    total: B25017001 
+    map:
+        rooms_one: B25017002 
+        rooms_two: B25017003 
+        rooms_three: B25017004 
+        rooms_four: B25017005 
+        rooms_five: B25017006 
+        rooms_six: B25017007 
+        rooms_seven: B25017008 
+        rooms_eight: B25017009 
+        rooms_nine_or_more: B25017010
+
+- concept: Heating fuel
+  ahs:
+    type: categorical
+    var: hfuel
+    map:
+        hfuel_electricity: 1 # Electricity
+        hfuel_gas: 2 # Gas, LP gas (liquid propane(LP) same as bottled gas)
+        hfuel_oil: [3, 4] # 3 Fuel oil + 4 Kerosene or other liquid fuel
+        hfuel_coal_or_coke: 5 # coal or coke
+        hfuel_wood: 6 # wood
+        hfuel_solar_energy: 7 # Solar energy
+        hfuel_other_fuel: 8 # Other; SPECIFY", 
+        hfuel_no_fuel_use: 9 #None     
+    notes: | 
+        Merged fuel oil + kerosene which are conflated in the ACS
+  acs:
+    table: B25040
+    total: B25040001
+    map:
+        hfuel_gas: [B25040002, B25040003] 
+        hfuel_electricity: B25040004 
+        hfuel_oil: B25040005 
+        hfuel_coal_or_coke: B25040006 
+        hfuel_wood: B25040007 
+        hfuel_solar_energy: B25040008 
+        hfuel_other_fuel: B25040009 
+        hfuel_no_fuel_use: B25040010 
+    notes: | 
+        Merged utility gas + bottled tank or lp gas 
+        in the ACS due to conflation in the AHS.
+
+- concept: Complete Kitchen Facilities?
+  ahs:
+    var: kitchen 
+    type: categorical
+    map:
+        kitchen_yes: 1
+        kitchen_no: 2
+  acs:
+    table: B25051
+    total: B25051001
+    map:
+        kitchen_yes: B25051002
+        kitchen_no: B25051003
+
+- concept: Plumbing Facilities
+  ahs: 
+    type: categorical
+    var: plumb
+    map:
+        plumb_yes: 1
+        plumb_no: 2
+  acs:
+    table: B25047
+    total: B25047001
+    map:
+        plumb_yes: B25047002
+        plumb_no: B25047003
+
+- concept: Telephone Services
+  ahs: 
+    type: categorical
+    var: phone
+    map:
+        phone_yes: 1
+        phone_no: 2
+  acs:
+    table: B25043
+    total: B25043001
+    map:
+        phone_yes: [B25043003, B25043007]
+        phone_no: [B25043012, B25043016]
+    notes: | 
+        The ACS groups phone services by tenancy + age. We summarize these into 
+        "has services" vs "lacks services" to match the AHS.
+
+
+- concept: Contract Rent.
+  ahs: 
+    var: rent
+    type: continuous
+    map:
+        rent_less_than_100: [1, 99]
+        rent_100_to_149: [100, 149]
+        rent_150_to_199: [150, 199] 
+        rent_200_to_249: [200, 249]
+        rent_250_to_299: [250, 299]
+        rent_300_to_349: [300, 349]
+        rent_350_to_399: [350, 399]
+        rent_400_to_449: [400, 449]
+        rent_450_to_499: [450, 499]
+        rent_500_to_549: [500, 549]
+        rent_550_to_599: [550, 599]
+        rent_600_to_649: [600, 649]
+        rent_650_to_699: [650, 699]
+        rent_700_to_749: [700, 749]
+        rent_750_to_799: [750, 799] 
+        rent_800_to_899: [800, 899]
+        rent_900_to_999: [900, 999]
+        rent_1000_to_1249: [1000, 1249]
+        rent_1250_to_1499: [1250, 1499]
+        rent_1500_to_1999: [1500, 1999]
+        rent_2000_or_more: [2000, 100000]
+
+  acs:
+    table: B25056
+    total: B25056001
+    map:
+        rent_less_than_100: B25056003 
+        rent_100_to_149: B25056004 
+        rent_150_to_199: B25056005 
+        rent_200_to_249: B25056006 
+        rent_250_to_299: B25056007 
+        rent_300_to_349: B25056008 
+        rent_350_to_399: B25056009 
+        rent_400_to_449: B25056010 
+        rent_450_to_499: B25056011 
+        rent_500_to_549: B25056012 
+        rent_550_to_599: B25056013 
+        rent_600_to_649: B25056014 
+        rent_650_to_699: B25056015 
+        rent_700_to_749: B25056016 
+        rent_750_to_799: B25056017 
+        rent_800_to_899: B25056018 
+        rent_900_to_999: B25056019 
+        rent_1000_to_1249: B25056020 
+        rent_1250_to_1499: B25056021 
+        rent_1500_to_1999: B25056022 
+        rent_2000_or_more: B25056023 
+
+- concept: Monthly Housing Costs.
+  ahs: 
+    var: zsmhc
+    type: continuous
+    map:
+        zsmhc_less_than_100: [1, 99]
+        zsmhc_100_to_199: [100, 199]
+        zsmhc_200_to_299: [200, 299]
+        zsmhc_300_to_399: [300, 399]
+        zsmhc_400_to_499: [400, 499]
+        zsmhc_500_to_599: [500, 599]
+        zsmhc_600_to_699: [600, 699]
+        zsmhc_700_to_799: [700, 799]
+        zsmhc_800_to_899: [800, 899]
+        zsmhc_900_to_999: [900, 999]
+        zsmhc_1000_to_1449: [1000, 1449]
+        zsmhc_1500_to_1999: [1500, 1999]
+        zsmhc_2000_or_more: [2000, 100000]
+
+  acs:
+    table: B25104
+    total: B25104001
+    map:
+        zsmhc_less_than_100: B25104002
+        zsmhc_100_to_199: B25104003
+        zsmhc_200_to_299: B25104004
+        zsmhc_300_to_399: B25104005
+        zsmhc_400_to_499: B25104006
+        zsmhc_500_to_599: B25104007
+        zsmhc_600_to_699: B25104008
+        zsmhc_700_to_799: B25104009
+        zsmhc_800_to_899: B25104010
+        zsmhc_900_to_999: B25104011
+        zsmhc_1000_to_1499: B25104012
+        zsmhc_1500_to_1999: B25104013
+        zsmhc_2000_or_more: B25104014
+
+- concept: Estimated Value of House.
+  ahs: 
+    var: pvalue
+    type: continuous
+    map:
+        pvalue_less_than_10000: [0, 9999]
+        pvalue_10000_to_14999: [10000, 14999]
+        pvalue_15000_to_19999: [15000, 19999]
+        pvalue_20000_to_24999: [20000, 24999] 
+        pvalue_25000_to_29999: [25000, 29999]  
+        pvalue_30000_to_34999: [30000, 34999]  
+        pvalue_35000_to_39999: [35000, 39999]  
+        pvalue_40000_to_49999: [40000, 49999]  
+        pvalue_50000_to_59999: [50000, 59999] 
+        pvalue_60000_to_69999: [60000, 69999] 
+        pvalue_70000_to_79999: [70000, 79999] 
+        pvalue_80000_to_89999: [80000, 89999]  
+        pvalue_90000_to_99999: [90000, 99999] 
+        pvalue_100000_to_124999: [100000, 124999] 
+        pvalue_125000_to_149999: [125000, 149999]
+        pvalue_150000_to_174999: [150000, 174999] 
+        pvalue_175000_to_199999: [175000, 199999] 
+        pvalue_200000_to_249999: [200000, 249999]
+        pvalue_250000_to_299999: [250000, 299999]
+        pvalue_300000_to_399999: [300000, 399999] 
+        pvalue_400000_to_499999: [400000, 499999] 
+        pvalue_500000_to_749999: [500000, 749999] 
+        pvalue_750000_to_999999: [750000, 999999] 
+        pvalue_1000000_or_more: [1000000, 10000000] 
+
+  acs:
+    table: B25075
+    total: B25075001
+    map:
+        pvalue_less_than_10000: B25075002 
+        pvalue_10000_to_14999: B25075003 
+        pvalue_15000_to_19999: B25075004 
+        pvalue_20000_to_24999: B25075005 
+        pvalue_25000_to_29999: B25075006 
+        pvalue_30000_to_34999: B25075007 
+        pvalue_35000_to_39999: B25075008 
+        pvalue_40000_to_49999: B25075009 
+        pvalue_50000_to_59999: B25075010 
+        pvalue_60000_to_69999: B25075011 
+        pvalue_70000_to_79999: B25075012 
+        pvalue_80000_to_89999: B25075013 
+        pvalue_90000_to_99999: B25075014 
+        pvalue_100000_to_124999: B25075015 
+        pvalue_125000_to_149999: B25075016 
+        pvalue_150000_to_174999: B25075017 
+        pvalue_175000_to_199999: B25075018 
+        pvalue_200000_to_249999: B25075019 
+        pvalue_250000_to_299999: B25075020 
+        pvalue_300000_to_399999: B25075021 
+        pvalue_400000_to_499999: B25075022 
+        pvalue_500000_to_749999: B25075023 
+        pvalue_750000_to_999999: B25075024 
+        pvalue_1000000_or_more: B25075025
+
+- concept: Estimated Value of Land.
+  ahs: 
+    var: lprice
+    type: continuous
+    map:
+        lprice_less_than_10000: [0, 9999]
+        lprice_10000_to_14999: [10000, 14999]
+        lprice_15000_to_19999: [15000, 19999]
+        lprice_20000_to_24999: [20000, 24999] 
+        lprice_25000_to_29999: [25000, 29999]  
+        lprice_30000_to_34999: [30000, 34999]  
+        lprice_35000_to_39999: [35000, 39999]  
+        lprice_40000_to_49999: [40000, 49999]  
+        lprice_50000_to_59999: [50000, 59999] 
+        lprice_60000_to_69999: [60000, 69999] 
+        lprice_70000_to_79999: [70000, 79999] 
+        lprice_80000_to_89999: [80000, 89999]  
+        lprice_90000_to_99999: [90000, 99999] 
+        lprice_100000_to_124999: [100000, 124999] 
+        lprice_125000_to_149999: [125000, 149999]
+        lprice_150000_to_174999: [150000, 174999] 
+        lprice_175000_to_199999: [175000, 199999] 
+        lprice_200000_to_249999: [200000, 249999]
+        lprice_250000_to_299999: [250000, 299999]
+        lprice_300000_to_399999: [300000, 399999] 
+        lprice_400000_to_499999: [400000, 499999] 
+        lprice_500000_to_749999: [500000, 749999] 
+        lprice_750000_to_999999: [750000, 999999] 
+        lprice_1000000_or_more: [1000000, 10000000] 
+
+  acs:
+    table: B25085
+    total: B25085001
+    map:
+        lprice_less_than_10000: B25085002 
+        lprice_10000_to_14999: B25085003 
+        lprice_15000_to_19999: B25085004 
+        lprice_20000_to_24999: B25085005 
+        lprice_25000_to_29999: B25085006 
+        lprice_30000_to_34999: B25085007 
+        lprice_35000_to_39999: B25085008 
+        lprice_40000_to_49999: B25085009 
+        lprice_50000_to_59999: B25085010 
+        lprice_60000_to_69999: B25085011 
+        lprice_70000_to_79999: B25085012 
+        lprice_80000_to_89999: B25085013 
+        lprice_90000_to_99999: B25085014 
+        lprice_100000_to_124999: B25085015 
+        lprice_125000_to_149999: B25085016 
+        lprice_150000_to_174999: B25085017 
+        lprice_175000_to_199999: B25085018 
+        lprice_200000_to_249999: B25085019 
+        lprice_250000_to_299999: B25085020 
+        lprice_300000_to_399999: B25085021 
+        lprice_400000_to_499999: B25085022 
+        lprice_500000_to_749999: B25085023 
+        lprice_750000_to_999999: B25085024 
+        lprice_1000000_or_more: B25085025                   
+
+- concept: Income
+  ahs:
+    var: zincn
+    type: continuous
+    map:
+        zincn_less_than_10000: [0, 10000]
+        zincn_10000_to_14999: [10000, 14999]
+        zincn_15000_to_19999: [15000, 19999]
+        zincn_20000_to_24999: [20000, 24999]
+        zincn_25000_to_29999: [25000, 29999]
+        zincn_30000_to_34999: [30000, 34999]
+        zincn_35000_to_39999: [35000, 39999]
+        zincn_40000_to_44999: [40000, 44999]
+        zincn_45000_to_49999: [45000, 49999]
+        zincn_50000_to_59999: [50000, 59999]
+        zincn_60000_to_74999: [60000, 74999]
+        zincn_75000_to_99999: [75000, 99999]
+        zincn_100000_to_124999: [190000, 124999]
+        zincn_125000_to_149999: [125000, 149999]
+        zincn_150000_to_199999: [150000, 199999]
+        zincn_200000_or_more: [200000, 10000000]
+  acs:
+    table: B19001
+    total: B19001001
+    map:
+        zincn_less_than_10000: B19001002
+        zincn_10000_to_14999: B19001003
+        zincn_15000_to_19999: B19001004
+        zincn_20000_to_24999: B19001005
+        zincn_25000_to_29999: B19001006
+        zincn_30000_to_34999: B19001007
+        zincn_35000_to_39999: B19001008
+        zincn_40000_to_44999: B19001009
+        zincn_45000_to_49999: B19001010
+        zincn_50000_to_59999: B19001011
+        zincn_60000_to_74999: B19001012
+        zincn_75000_to_99999: B19001013
+        zincn_100000_to_124999: B19001014
+        zincn_125000_to_149999: B19001015
+        zincn_150000_to_199999: B19001016
+        zincn_200000_or_more: B19001017
+
+- concept: Mortgage
+  ahs:
+    var: mg
+    type: categorical
+    map:
+      mg_yes: 1
+      mg_no: 2
+
+  acs:
+    table: B25081
+    total: B25081001
+    map:
+      mg_yes: B19001002
+      mg_no: B25081008
+    notes: | 
+      A more granular mapping is possible between
+      this table in the ACS and multiple variables
+      in the AHS, but we only captured "YES"/"NO" to
+      mortgage status for now.
+
+
+- concept: Year householder moved in?
+  ahs:
+    var: hhmove
+    type: continuous
+    map:
+      hhmove_moved_in_2010_or_later: [2010, 2020]
+      hhmove_moved_in_2000_to_2009: [2000, 2009]
+      hhmove_moved_in_1990_to_1999: [1990, 1999]
+      hhmove_moved_in_1980_to_1989: [1980, 1989]
+      hhmove_moved_in_1970_to_1979: [1970, 1979]
+      hhmove_moved_in_1969_or_earlier: [1800, 1969]
+  acs:
+    table: B25038
+    total: B25038001
+    map:
+      hhmove_moved_in_2010_or_later: [B25038003, B25038010]
+      hhmove_moved_in_2000_to_2009: [B25038004, B25038011]
+      hhmove_moved_in_1990_to_1999: [B25038005, B25038012]
+      hhmove_moved_in_1980_to_1989: [B25038006, B25038013]
+      hhmove_moved_in_1970_to_1979: [B25038007, B25038014]
+      hhmove_moved_in_1969_or_earlier: [B25038008, B25038015]
+    notes: |
+      ACS groups move date by tenure (rent vs. own) while the AHS does not.
+
+- concept: Foodstamps
+  ahs:
+    var: qfs1
+    type: categorical
+    map:
+      qfs1_yes: 1
+      qfs1_no: 2
+  acs:
+    table: B19058
+    total: B19058001
+    map:
+      qfs1_yes: B19058002
+      qfs1_no: B19058003
+
+- concept: Disability
+  ahs:
+    var: hdsb
+    type: categorical
+    map:
+        hdsb_yes: 1
+        hdsb_no: 2
+  acs:
+    table: B18101
+    total: B18101001
+    map:
+        hdsb_yes: [B18101019, B18101038]
+        hdsb_no: [B18101039, B18101020]
+    notes: |
+      ACS groups disabilities by gender, AHS does not.
