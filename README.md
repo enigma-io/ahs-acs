@@ -7,6 +7,10 @@ This repository contains logic for mapping shared questions from the American Ho
 
 Many questions asked in the AHS directly mirror those asked in the ACS. For instance, both surveys ask about a respondent's age. While the ACS groups these responses into bucketed counts per block group (i.e. "Males under the age of 5" or "Females between the ages of 70 and 74"), the AHS simply records the respondent's actual age (4 or 72). While both surveys capture the same concept, they each record this information in different ways.  This project is an effort to enable translations between the two surveys by mapping these concepts into a common schema. This is useful as it allows models trained on AHS data to be scored on ACS data. For an example of such an application, check out [this project](http://github.com/enigma-io/smoke-alarm-risk).
 
+## Why ?
+
+Making the ACS-AHS merge a machine-readable process greatly enhances the value of the data in the American Housing Survey, and by extension, enriches what we can learn about a given few blocks within the biggest metro-areas in the U.S. We are [not](http://www.census.gov/content/dam/Census/programs-surveys/ahs/publications/CombiningAHS-ACS.pdf) [the](http://www.huduser.org/publications/pdf/comparison_hsg.pdf) [first](http://www.census.gov/housing/vacanciesfactsheet.html) to attempt a method for explaining the relationship between the two datasets. However, to the best of our knowledge, we have gone the farthest in making that process programmatic. 
+
 ## How ?
 
 We came up with these mappings by scanning the [AHS Codebook](codebooks/ahs.pdf) for questions that were also asked in the ACS. For the most part, these were demographic variables and information about a respondent's household. While we tried to be as comprehensive as possible, it's entirely possible that some common concepts were missed (If you find any of these, please note so in this repository's [issue tracker](https://github.com/enigma-io/ahs-acs/issues)).
