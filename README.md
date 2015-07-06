@@ -1,7 +1,7 @@
 AHS <=> ACS
 =======
 
-This repository contains logic for mapping shared questions from the American Housing Survey (2011) and the American Community Survery (2013 5-year estimates) into a common schema.
+This repository contains logic for mapping shared questions from the American Housing Survey (2011) and the American Community Survey (2013 5-year estimates) into a common schema.
 
 ## What ?
 
@@ -11,7 +11,7 @@ Many questions asked in the AHS directly mirror those asked in the ACS. For inst
 
 We came up with these mappings by scanning the [AHS Codebook](codebooks/ahs.pdf) for questions that were also asked in the ACS. For the most part, these were demographic variables and information about a respondent's household. While we tried to be as comprehensive as possible, it's entirely possible that some common concepts were missed (If you find any of these, please note so in this repository's [issue tracker](https://github.com/enigma-io/ahs-acs/issues)).
 
-For each question the two surveys shared, we mapped the responses into a common schema. In the case of the AHS, responses are recorded in categories (i.e. "married" = 3 and "divorce"=4) or continous numbers ("year house built" = 1964). On the other hand, the ACS buckets responses into census-block-level counts (as well as counts for other census geometries). In order to map the two surveys, we had to similarly bucket AHS responses into binary indicators. Here's an example of what this process looks like for "Marital Status":
+For each question the two surveys shared, we mapped the responses into a common schema. In the case of the AHS, responses are recorded in categories (i.e. "married" = 3 and "divorce" = 4), or continous numbers ("year house built" = 1964). On the other hand, as mentioned above, the ACS buckets responses by counts for census geographies like block groups and tracts. In order to map the two surveys, we had to similarly bucket AHS responses into binary indicators. Here's an example of what this process looks like for "Marital Status":
 
 ```yaml
 - concept: Marital Status 
@@ -61,7 +61,7 @@ Our translated version would look like this:
 | 0 | 0 | 0 | 0 | 0 | 1 |
 
 
-The ACS, on the other hand, represents responses with multiple columns for faceted counts. In the particular case of marital status, the ACS groups responses by sex. As a result, we need to merge multiple columns into a single column. For instance, the column `B12001005` represents the count of males per census block who are married and whose spouses are present in their household. `B12001014` reprsents this same count for females.  By summing these two columns, we can generate a single count of people who are married with their spouse present per census block.  Finally, in order to normalize these counts to the same range as our transformed AHS table, we must divide them all by the `total` population of a census block. The resulting table might look something like this:
+The ACS, on the other hand, represents responses with multiple columns for faceted counts. In the particular case of marital status, the ACS groups responses by sex. As a result, we need to merge multiple columns into a single column. For instance, the column `B12001005` represents the count of males per census block who are married and whose spouses are present in their household. `B12001014` represents this same count for females.  By summing these two columns, we can generate a single count of people who are married with their spouse present per census block.  Finally, in order to normalize these counts to the same range as our transformed AHS table, we must divide them all by the `total` population of a census block. The resulting table might look something like this:
 
 | hhmar_married_spouse_present | hhmar_married_spouse_absent | hhmar_widowed | hhmar_divorced | hhmar_separated | hhmar_never_married |
 |----|----|----|----|----|----|
@@ -97,12 +97,12 @@ As described in the [AHS Codebook](codebooks/ahs.pdf), responses are missing for
 
 ## Get the data.
 
-If you'd simply like to download the resulting files, you can access public versions of them here:
+If you'd like to download the resulting files of cross-tabluted variables for the AHS and ACS, you can access public versions of them here:
 
 * [acs.csv ~ 2GB uncompressed](http://enigma-public.s3.amazonaws.com/projects/smoke-alarm-risk/data/acs.csv)
 * [ahs.csv ~ 100MB uncompressed](http://enigma-public.s3.amazonaws.com/projects/smoke-alarm-risk/data/ahs.csv)
 
-Or if you just want to access the raw `postgresql` dumps of the ACS and AHS, you can find them here:
+Or, if you want to access the raw PostgreSQL dumps of the ACS and AHS, you can find them here:
 
 * [acs20135yr.sql ~ 13 GB compressed](http://enigma-public.s3.amazonaws.com/projects/ahs-acs/data/acs20135yr.sql.gz)
 * [ahs2011.sql ~ 50MB compressed](http://enigma-public.s3.amazonaws.com/projects/ahs-acs/data/ahs2011.sql.gz)
@@ -111,15 +111,17 @@ Otherwise, if you'd like to re-run the queries to generate your own output, foll
 
 ## AWS Installation.
 
-#### 1. Spin up a fresh box:
+What follows is a quick tutorial for how to get an AWS instance up and running with the ACS 2013 5-year census along with the 2011 AHS. For those who are trying this process for the first time, be aware of [how Amazon prices servers](http://aws.amazon.com/ec2/pricing/).
 
-Naviage to AWS's "Add Instance" tool and select an Ubuntu 14.0.4 box:
+#### 1. Spin up a fresh server:
+
+You'll need to pick a box to spin up. Navigate to AWS's "Add Instance" tool and select an Ubuntu 14.0.4 box (this is the operating system and version with which we've run the work in this repo):
 
 
 ![ubuntu-box](img/ubuntu.png)
 
 
-You'll want a pretty beefy instance with EBS optimization if you want the queries to execute quickly:
+You'll want a pretty beefy instance with [EBS optimization](http://aws.amazon.com/ebs/) if you want the queries to execute quickly:
 
 
 ![instance-size](img/instance.png)
@@ -138,21 +140,21 @@ Once your instance is launched, press the "Connect" button in the AWS EC2 Consol
 
 ![drive](img/ssh.png)
 
-Now that you've got a fresh box with enough storage to hold the entire ACS, let's install postgres.
+Now that you've got a fresh box with enough storage to hold the entire ACS, let's install (PostgreSQL)[http://www.postgresql.org/].
 
 #### 2. Mount your EBS drive:
 
-First, run `lsblk` and check the output, you should see one drive that's a lot bigger than the others:
+First, run (lsblk)[http://manpages.courier-mta.org/htmlman8/lsblk.8.html] and check the output. You should see one drive that's a lot bigger than the others:
 
 ![lsblk](img/lsblk.png)
 
-Create a filesystem on on this drive;
+Create a filesystem on this drive:
 
 ```
 sudo mkfs -t ext4 /dev/xvdb
 ```
 
-Now, mount this drive:
+Then, mount this drive onto a filepath on the local system, like `/mnt`:
 
 ```
 sudo mount /dev/xvdb /mnt
@@ -160,6 +162,8 @@ sudo mount /dev/xvdb /mnt
 ```
 
 #### 3. Install the requirements
+
+Enter the following into the terminal of your remote server to get the latest updates for the system, the pre-reqs for PostgreSQL, and a Python yaml interpreter.
 
 ```bash
 sudo apt-get update
@@ -170,20 +174,14 @@ sudo pip install pyyaml
 
 #### 4. Configure Postgres to store data to the mounted drive
 
-First create a new directory under `/mnt` and make sure it's accessable to the user `postgres`:
+First create a new directory under `/mnt` and make sure it's accessible to the user `postgres`:
 
 ```
 sudo mkdir /mnt/postgresql
 sudo chown postgres:postgres /mnt/postgresql
 ```
 
-Now, stop `postgresql`:
-
-```
-sudo service postgresql stop
-```
-
-Next, open up the `postgresql.conf` file
+Next, use a text editing program in your terminal. We'll use vim. Open up the `postgresql.conf` file:
 
 ```
 sudo vim /etc/postgresql/9.3/main/postgresql.conf
@@ -209,14 +207,14 @@ Initialize a database under your new directory:
 /usr/lib/postgresql/9.3/bin/initdb -D /mnt/postgresql
 ```
 
-Exit and restart postgres
+Now, exit from the postgres user role and restart PostgreSQL so that it can register the changes you made.
 
 ```
-exit 
+exit
 sudo service postgresql restart
 ```
 
-You should now be able to log into postgresql as the user `postgres`:
+You should now be able to log into postgresql as the user `postgres` by entering:
 
 ```
 sudo su postgres
@@ -228,7 +226,7 @@ psql
 
 #### 5. Download the ACS + AHS files to your mounted drive
 
-Now that you have an EBS-backed instance of `postgresql` up and running, you should be ready to install the ACS and AHS tables.
+Now that you have an EBS-backed instance of PostgreSQL up and running, you should be ready to install the ACS and AHS tables.
 
 First, make sure you're no longer registered as the `postgres` user:
 
