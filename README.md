@@ -1,7 +1,7 @@
 AHS <=> ACS
 =======
 
-This repository contains logic for mapping shared questions from the American Housing Survey (2011) and the American Community Survey (2013 5-year estimates) into a common schema.
+This repository contains logic for mapping shared questions from the American Housing Survey (2011) and the American Community Survey (2013 5-year estimates) into a common schema. For some background around the motivations and impetus for this work, check out [our blog post on the issue](http://blog.enigma.io/making-federal-data-local-merging-the-american-housing-survey-to-the-american-community-survey/).
 
 ## What ?
 
