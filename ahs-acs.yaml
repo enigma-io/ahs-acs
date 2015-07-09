@@ -442,8 +442,8 @@
         table: B19054
         total: B19054001
         map:
-            qwelf_yes: B19054002
-            qwelf_no: B19054003
+            qrent_yes: B19054002
+            qrent_no: B19054003
 
 
 
