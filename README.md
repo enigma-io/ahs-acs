@@ -9,7 +9,7 @@ Many questions asked in the AHS directly mirror those asked in the ACS. For inst
 
 ## Why ?
 
-Making the ACS-AHS merge a machine-readable process greatly enhances the value of the data in the American Housing Survey, and by extension, enriches what we can learn about a given few blocks within the biggest metro-areas in the U.S. We are [not](http://www.census.gov/content/dam/Census/programs-surveys/ahs/publications/CombiningAHS-ACS.pdf) [the](http://www.huduser.org/publications/pdf/comparison_hsg.pdf) [first](http://www.census.gov/housing/vacanciesfactsheet.html) to attempt a method for explaining the relationship between the two datasets. However, to the best of our knowledge, we have gone the farthest in making that process programmatic. 
+Making the ACS-AHS merge a machine-readable process greatly enhances the value of the data in the American Housing Survey, and by extension, enriches what we can learn about a given few blocks within the biggest metro-areas in the U.S. We are [not](http://www.census.gov/content/dam/Census/programs-surveys/ahs/publications/CombiningAHS-ACS.pdf) [the](http://www.huduser.org/publications/pdf/comparison_hsg.pdf) [first](http://www.census.gov/housing/vacanciesfactsheet.html) to attempt a method for explaining the relationship between the two datasets. However, to the best of our knowledge, we have gone the furthest in making that process programmatic. 
 
 ## How ?
 
